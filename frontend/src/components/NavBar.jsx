@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
+import logo from "/workspaces/AlfaEscuderia/frontend/public/logo-universidad-marista.webp";
 
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3">
       <div className="container">
         {/* Logo */}
+        <img
+          src={logo}
+          alt="Logo Universidad Marista"
+          style={{ height: "50px", marginRight: "15px" }}
+        />
+
+        {/* Nombre centrado */}
         <Link className="navbar-brand fw-bold mx-auto" to="/">
           AlfaEscudería
         </Link>
 
-        {/* Botón hamburguesa (en mobile) */}
+        {/* Botón hamburguesa (mobile) */}
         <button
           className="navbar-toggler"
           type="button"
