@@ -1,13 +1,1207 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfa Escudería UMG | Diseño y Construcción de Aeromodelos</title>
+    <meta name="description" content="Escudería estudiantil especializada en diseño, construcción y vuelo de aeromodelos de radiocontrol. SAE AeroDesign México.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary-dark: #001a4d;
+            --color-primary: #003d99;
+            --color-primary-light: #0052cc;
+            --color-accent-gold: #d4af37;
+            --color-accent-light: #f4e4b6;
+            --color-dark-bg: #0a0e27;
+            --color-surface: #151b3a;
+            --color-text: #e8ecf1;
+            --color-text-secondary: #a8b2c1;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --duration: 350ms;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, var(--color-dark-bg) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAVEGACIÓN */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 26, 77, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--color-accent-gold);
+            padding: 1rem 2rem;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--color-accent-gold), #e8d4a2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🐺";
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--duration) ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent-gold);
+            transition: width var(--duration) ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-nav {
+            background: linear-gradient(135deg, var(--color-accent-gold), #e8d4a2);
+            color: var(--color-primary-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all var(--duration) ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/f9ee9e7c-7e8c-4b80-9fff-89b7ad803a1c');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(135deg, rgba(0, 26, 77, 0.75) 0%, rgba(0, 58, 153, 0.85) 50%, rgba(0, 26, 77, 0.8) 100%);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--color-accent-gold), #e8d4a2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2.5rem;
+            animation: slideUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--duration) ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent-gold), #e8d4a2);
+            color: var(--color-primary-dark);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-accent-gold);
+            border: 2px solid var(--color-accent-gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SECCIONES GENERALES */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title span {
+            color: var(--color-accent-gold);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* MISIÓN & VISIÓN */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--color-surface), rgba(0, 82, 204, 0.1));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2.5rem;
+            border-radius: 15px;
+            transition: all var(--duration) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            border-color: var(--color-accent-gold);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent-gold);
+        }
+
+        .card p {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        /* AVIONES & LOGROS */
+        .aircraft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .aircraft-card {
+            background: linear-gradient(135deg, var(--color-surface), rgba(0, 82, 204, 0.15));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all var(--duration) ease;
+            cursor: pointer;
+        }
+
+        .aircraft-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent-gold);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .aircraft-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+            display: grid;
+            place-items: center;
+            font-size: 4rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .aircraft-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 82, 204, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .aircraft-info {
+            padding: 2rem;
+        }
+
+        .aircraft-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-accent-gold);
+        }
+
+        .aircraft-year {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .aircraft-description {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .achievement {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--color-accent-gold);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ÁREAS DE TRABAJO */
+        .work-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .area-card {
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.15), var(--color-surface));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all var(--duration) ease;
+            position: relative;
+        }
+
+        .area-card:hover {
+            border-color: var(--color-accent-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(212, 175, 55, 0.15);
+        }
+
+        .area-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .area-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent-gold);
+        }
+
+        .area-card p {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        /* PATROCINADORES */
+        .sponsors {
+            text-align: center;
+        }
+
+        .sponsor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .sponsor-slot {
+            background: linear-gradient(135deg, var(--color-surface), rgba(0, 82, 204, 0.1));
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            color: var(--color-text-secondary);
+            transition: all var(--duration) ease;
+            cursor: pointer;
+        }
+
+        .sponsor-slot:hover {
+            border-color: var(--color-accent-gold);
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.15), rgba(212, 175, 55, 0.05));
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+        }
+
+        .sponsor-text {
+            color: var(--color-text-secondary);
+            margin-top: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* CALL TO ACTION */
+        .cta-section {
+            background: linear-gradient(135deg, 
+                rgba(0, 82, 204, 0.2) 0%, 
+                rgba(212, 175, 55, 0.1) 50%,
+                rgba(0, 82, 204, 0.15) 100%
+            );
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 5rem 2rem;
+            text-align: center;
+            margin: 6rem auto;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.15);
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-accent-gold);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: slideUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 0.8s ease-out 0.4s backwards;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--color-primary-dark);
+            border-top: 2px solid var(--color-accent-gold);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--color-accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--color-text-secondary);
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: color var(--duration) ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--color-accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--color-text-secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            transition: all var(--duration) ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--color-accent-gold);
+            color: var(--color-primary-dark);
+            border-color: var(--color-accent-gold);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* MODAL (para formularios futuros) */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            place-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: grid;
+        }
+
+        .modal-content {
+            background: var(--color-surface);
+            border: 2px solid var(--color-accent-gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all var(--duration) ease;
+        }
+
+        .modal-close:hover {
+            background: var(--color-accent-gold);
+            color: var(--color-primary-dark);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-accent-gold);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 26, 77, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: var(--color-text);
+            font-family: inherit;
+            transition: border-color var(--duration) ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* PARALLAX Y EFECTOS INTERACTIVOS */
+        .parallax-section {
+            position: relative;
+            padding: 6rem 2rem;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blur-on-scroll {
+            transition: filter 0.3s ease;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .aircraft-card {
+            animation: slideInOnScroll 0.6s ease backwards;
+        }
+
+        @keyframes slideInOnScroll {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .area-card {
+            animation: scaleInOnScroll 0.6s ease backwards;
+        }
+
+        @keyframes scaleInOnScroll {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Alfa Escudería</div>
+            <ul>
+                <li><a href="#mision">Misión</a></li>
+                <li><a href="#aviones">Aviones</a></li>
+                <li><a href="#areas">Equipo</a></li>
+                <li><a href="#patrocinadores">Patrocinadores</a></li>
+                <li><a href="#" class="cta-nav" onclick="openModal('contact'); return false;">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Elevando la <span>Innovación Aeronáutica</span></h1>
+            <p>Escudería estudiantil de la UMG especializados en diseño, construcción y vuelo de aeromodelos competitivos. Diseñando el futuro, un avión a la vez.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="openModal('join')">🎯 Únete al Equipo</button>
+                <button class="btn btn-secondary" onclick="openModal('sponsor')">💰 Se Patrocinador</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">👇</div>
+    </section>
+
+    <!-- MISIÓN Y VISIÓN -->
+    <section id="mision">
+        <h2 class="section-title">Nuestra <span>Esencia</span></h2>
+        <p class="section-subtitle">Fundada en 2023, Alfa UMG representa el compromiso de estudiantes con la excelencia en ingeniería aeronáutica.</p>
+        
+        <div class="mission-vision">
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>Misión</h3>
+                <p>Ser un modelo de grupo social dedicado a la investigación, desarrollo y puesta en práctica de conocimientos multidisciplinarios, representando honorablemente a la Universidad Marista de Guadalajara con liderazgo en experiencia profesional.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Visión</h3>
+                <p>Generar oportunidades para que estudiantes participen en proyectos de ingeniería profesional, aplicando conocimientos e investigación en aeronáutica con valores maristas, posicionándonos como referentes latinoamericanos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUESTROS AVIONES Y LOGROS -->
+    <section id="aviones">
+        <h2 class="section-title">Nuestros <span>Prototipos</span></h2>
+        <p class="section-subtitle">Cada avión representa evolución, innovación y excelencia en ingeniería.</p>
+        
+        <div class="aircraft-grid">
+            <!-- PROYECTO ALFA-01 -->
+            <!-- 📸 REEMPLAZA: aircraft-image con tu foto del avión -->
+            <!-- 👇 COPIA LA URL DE TU IMAGEN Y REEMPLAZA EN background-image -->
+            <div class="aircraft-card">
+                <div class="aircraft-image" style="background-image: url('TU_IMAGEN_ALFA01_AQUI'); background-size: cover; background-position: center; font-size: 0;">✈️</div>
+                <div class="aircraft-info">
+                    <h3>Alfa-01</h3>
+                    <p class="aircraft-year">2023 | SAE AeroDesign México</p>
+                    <p class="aircraft-description">Nuestro primer prototipo marcó el inicio de la trayectoria Alfa. Diseñado y fabricado para competir en la edición 13 de SAE AeroDesign México.</p>
+                    <span class="achievement">🏆 Lugar 13 Nacional</span>
+                </div>
+            </div>
+
+            <!-- PROYECTO QUETZALFA-02 -->
+            <!-- 📸 REEMPLAZA: aircraft-image con tu foto del avión -->
+            <!-- 👇 COPIA LA URL DE TU IMAGEN Y REEMPLAZA EN background-image -->
+            <div class="aircraft-card">
+                <div class="aircraft-image" style="background-image: url('TU_IMAGEN_QUETZALFA02_AQUI'); background-size: cover; background-position: center; font-size: 0;">🦅</div>
+                <div class="aircraft-info">
+                    <h3>Quetzalfa-02</h3>
+                    <p class="aircraft-year">2024 | SAE AeroDesign México</p>
+                    <p class="aircraft-description">Combinando la libertad del Quetzal con la fuerza de Alfa. Este modelo implementó innovaciones significativas en aerodinámica y estructura.</p>
+                    <span class="achievement">🥇 Lugar 5 Nacional</span>
+                    <span class="achievement">⭐ Premio Mérito SAE</span>
+                </div>
+            </div>
+
+            <!-- PROYECTO FURIA-03 -->
+            <!-- 📸 REEMPLAZA: aircraft-image con tu foto del avión -->
+            <!-- 👇 COPIA LA URL DE TU IMAGEN Y REEMPLAZA EN background-image -->
+            <div class="aircraft-card">
+                <div class="aircraft-image" style="background-image: url('TU_IMAGEN_FURIA03_AQUI'); background-size: cover; background-position: center; font-size: 0;">🐉</div>
+                <div class="aircraft-info">
+                    <h3>FuriA-03</h3>
+                    <p class="aircraft-year">2025 | AeroDesign MX</p>
+                    <p class="aircraft-description">Fibra de carbono, potencia y modernidad. FuriA representa el salto tecnológico, inspirado en la intensidad de la Furia Nocturna.</p>
+                    <span class="achievement">🚀 Próxima Competencia</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÁREAS DE TRABAJO -->
+    <section id="areas">
+        <h2 class="section-title">Nuestro <span>Equipo</span></h2>
+        <p class="section-subtitle">Somos una escudería multidisciplinaria. Cada área es clave para el éxito.</p>
+        
+        <div class="work-areas">
+            <div class="area-card">
+                <div class="area-icon">📊</div>
+                <h3>Gestión</h3>
+                <p>Planificación, administración de recursos, finanzas, patrocinios y comunicación. Coordinamos cada etapa con precisión.</p>
+            </div>
+            <div class="area-card">
+                <div class="area-icon">🎨</div>
+                <h3>Diseño & Validación</h3>
+                <p>Desarrollo CAD, análisis aerodinámico, estructural y simulaciones computacionales con software de ingeniería profesional.</p>
+            </div>
+            <div class="area-card">
+                <div class="area-icon">🔧</div>
+                <h3>Manufactura</h3>
+                <p>Construcción física, trabajos con fibra de carbono, balsa, espumas especiales y sistemas electrónicos integrados.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PATROCINADORES -->
+    <section id="patrocinadores">
+        <h2 class="section-title">Nuestros <span>Aliados</span></h2>
+        <p class="section-subtitle">Gracias a quienes creen en nuestra misión y apoyan la innovación estudiantil.</p>
+        
+        <div class="sponsors">
+            <div class="sponsor-grid">
+                <div class="sponsor-slot">
+                    <span>🤝</span>
+                </div>
+                <div class="sponsor-slot">
+                    <span>🤝</span>
+                </div>
+                <div class="sponsor-slot">
+                    <span>🤝</span>
+                </div>
+                <div class="sponsor-slot">
+                    <span>🤝</span>
+                </div>
+                <div class="sponsor-slot">
+                    <span>🤝</span>
+                </div>
+                <div class="sponsor-slot">
+                    <span>🤝</span>
+                </div>
+            </div>
+            <p class="sponsor-text">¿Tu empresa quiere ser parte de Alfa UMG? Contáctanos para conocer opciones de patrocinio.</p>
+            <button class="btn btn-primary" onclick="openModal('sponsor')" style="margin-top: 2rem;">💼 Quiero Patrocinar</button>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-section">
+        <h2>¿Listo para volar con nosotros?</h2>
+        <p>Únete a la comunidad Alfa UMG. Sé parte de un proyecto que está transformando la ingeniería aeronáutica en México.</p>
+        <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="openModal('join')">🎯 Únete Ahora</button>
+            <button class="btn btn-secondary" onclick="openModal('donate')">❤️ Hacer Donación</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🐺 Alfa Escudería UMG</h4>
+                <p>Escudería estudiantil de la Universidad Marista de Guadalajara, especializada en diseño y construcción de aeromodelos competitivos.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/alfaumg?igsh=MWxmdjlxenliNW13eQ==" target="_blank" title="Instagram">📱</a>
+                    <a href="https://github.com/Jaime-Gutierrez-19/AlfaEscuderia" target="_blank" title="GitHub">🐙</a>
+                    <a href="#" title="LinkedIn">💼</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Navegación</h4>
+                <a href="#mision">Misión & Visión</a>
+                <a href="#aviones">Nuestros Aviones</a>
+                <a href="#areas">Equipo</a>
+                <a href="#patrocinadores">Patrocinadores</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p>📧 <a href="mailto:umgalfa@gmail.com">umgalfa@gmail.com</a></p>
+                <p>📍 Universidad Marista de Guadalajara</p>
+                <p>Guadalajara, Jalisco, México</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Alfa Escudería UMG. Diseñando el futuro, un avión a la vez. 🚀</p>
+        </div>
+    </footer>
+
+    <!-- MODALES -->
+    <div class="modal" id="joinModal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('join')">✕</div>
+            <h2 style="color: var(--color-accent-gold); margin-bottom: 1.5rem;">🎯 Únete al Equipo</h2>
+            <form onsubmit="handleSubmit(event, 'join')">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Carrera</label>
+                    <input type="text" placeholder="Ej: Ingeniería Aeronáutica">
+                </div>
+                <div class="form-group">
+                    <label>Área de Interés</label>
+                    <input type="text" placeholder="Ej: Diseño, Manufactura, Gestión">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea placeholder="Cuéntanos por qué quieres unirte..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="sponsorModal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('sponsor')">✕</div>
+            <h2 style="color: var(--color-accent-gold); margin-bottom: 1.5rem;">💼 Sé Patrocinador</h2>
+            <form onsubmit="handleSubmit(event, 'sponsor')">
+                <div class="form-group">
+                    <label>Nombre de la Empresa</label>
+                    <input type="text" required placeholder="Tu empresa">
+                </div>
+                <div class="form-group">
+                    <label>Contacto</label>
+                    <input type="email" required placeholder="contacto@empresa.com">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" placeholder="+52 ...">
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Patrocinio de Interés</label>
+                    <input type="text" placeholder="Ej: Materiales, Financiero, Servicios">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea placeholder="Cuéntanos sobre tu empresa y expectativas..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Contactar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="donateModal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('donate')">✕</div>
+            <h2 style="color: var(--color-accent-gold); margin-bottom: 1.5rem;">❤️ Hacer Donación</h2>
+            <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">Tu apoyo nos ayuda a alcanzar nuevas alturas. Próximamente integraremos pasarela de pagos.</p>
+            <form onsubmit="handleSubmit(event, 'donate')">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Monto (MXN)</label>
+                    <input type="number" placeholder="Cantidad" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje (Opcional)</label>
+                    <textarea placeholder="Cuéntanos por qué apoyas Alfa..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Proceder al Pago</button>
+                <p style="color: var(--color-text-secondary); font-size: 0.85rem; margin-top: 1rem; text-align: center;">
+                    * Sistema de pagos será integrado en la próxima fase
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal('contact')">✕</div>
+            <h2 style="color: var(--color-accent-gold); margin-bottom: 1.5rem;">📬 Contacto</h2>
+            <form onsubmit="handleSubmit(event, 'contact')">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Asunto</label>
+                    <input type="text" required placeholder="¿En qué te podemos ayudar?">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea placeholder="Tu mensaje..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Navegación fija con efecto scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Funciones para modales
+        function openModal(type) {
+            document.getElementById(type + 'Modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Manejo de formularios
+        function handleSubmit(event, type) {
+            event.preventDefault();
+            alert(`✅ Gracias por tu interés en Alfa UMG!\n\nTu solicitud de ${type} ha sido recibida.\n\nNos pondremos en contacto pronto. 🚀`);
+            event.target.reset();
+            closeModal(type);
+        }
+
+        // Smooth scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // INTERACTIVIDAD: Animaciones al scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos con fade-in-up
+        document.querySelectorAll('.card, .section-title, .section-subtitle').forEach(el => {
+            el.classList.add('fade-in-up');
+            observer.observe(el);
+        });
+
+        // PARALLAX: Efecto de profundidad al scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.aircraft-card, .area-card');
+            
+            parallaxElements.forEach((el, index) => {
+                const speed = 0.5 + (index * 0.1);
+                el.style.transform = `translateY(${scrolled * speed * 0.01}px)`;
+            });
+        });
+
+        // EFECTO: Blur sutil al navegar
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollPercent = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    const blur = Math.min(scrollPercent / 50, 2);
+                    
+                    const heroContent = document.querySelector('.hero-content');
+                    if (heroContent && scrollPercent < 100) {
+                        heroContent.style.filter = `blur(${blur}px)`;
+                    }
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
+</body>
 </html>
