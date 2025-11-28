@@ -274,13 +274,39 @@
         }
 
         .card {
-            background: linear-gradient(135deg, var(--color-surface), rgba(0, 82, 204, 0.1));
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, rgba(0, 26, 77, 0.75) 0%, rgba(0, 58, 153, 0.85) 50%, rgba(0, 26, 77, 0.8) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.5);
             padding: 2.5rem;
-            border-radius: 15px;
+            border-radius: 20px;
             transition: all var(--duration) ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(15px);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            box-shadow: 
+                inset 0 0 30px rgba(212, 175, 55, 0.1),
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(0, 58, 153, 0.2);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(135deg, rgba(0, 26, 77, 0.75) 0%, rgba(0, 58, 153, 0.85) 50%, rgba(0, 26, 77, 0.8) 100%);
+            z-index: 1;
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        .card h3,
+        .card p {
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.4);
+            position: relative;
+            z-index: 2;
         }
 
         .card::before {
@@ -290,8 +316,9 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
             transition: left 0.6s ease;
+            z-index: 1;
         }
 
         .card:hover::before {
@@ -300,8 +327,12 @@
 
         .card:hover {
             border-color: var(--color-accent-gold);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.15);
-            transform: translateY(-5px);
+            box-shadow: 
+                inset 0 0 40px rgba(212, 175, 55, 0.2),
+                0 12px 40px rgba(212, 175, 55, 0.3),
+                0 0 60px rgba(0, 82, 204, 0.4);
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, rgba(0, 26, 77, 0.6) 0%, rgba(0, 82, 204, 0.75) 50%, rgba(0, 26, 77, 0.7) 100%);
         }
 
         .card-icon {
@@ -409,19 +440,72 @@
         }
 
         .area-card {
-            background: linear-gradient(135deg, rgba(0, 82, 204, 0.15), var(--color-surface));
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, rgba(0, 26, 77, 0.75) 0%, rgba(0, 58, 153, 0.85) 50%, rgba(0, 26, 77, 0.8) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.5);
             padding: 2.5rem;
-            border-radius: 15px;
+            border-radius: 20px;
             text-align: center;
             transition: all var(--duration) ease;
             position: relative;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                inset 0 0 30px rgba(212, 175, 55, 0.1),
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(0, 58, 153, 0.2);
+            overflow: hidden;
+        }
+
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .area-card:hover::before {
+            left: 100%;
+        }
+
+        .area-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(135deg, rgba(0, 26, 77, 0.75) 0%, rgba(0, 58, 153, 0.85) 50%, rgba(0, 26, 77, 0.8) 100%);
+            z-index: 1;
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        .area-card h3,
+        .area-card p {
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.4);
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .area-card h3 {
+            color: var(--color-accent-gold);
         }
 
         .area-card:hover {
             border-color: var(--color-accent-gold);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 35px rgba(212, 175, 55, 0.15);
+            box-shadow: 
+                inset 0 0 40px rgba(212, 175, 55, 0.2),
+                0 12px 40px rgba(212, 175, 55, 0.3),
+                0 0 60px rgba(0, 82, 204, 0.4);
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, rgba(0, 26, 77, 0.6) 0%, rgba(0, 82, 204, 0.75) 50%, rgba(0, 26, 77, 0.7) 100%);
         }
 
         .area-icon {
@@ -447,28 +531,47 @@
 
         .sponsor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2.5rem;
             margin-bottom: 3rem;
         }
 
         .sponsor-slot {
-            background: linear-gradient(135deg, var(--color-surface), rgba(0, 82, 204, 0.1));
-            border: 2px dashed rgba(212, 175, 55, 0.3);
-            padding: 3rem 2rem;
-            border-radius: 12px;
+            background: linear-gradient(135deg, var(--color-surface), rgba(0, 82, 204, 0.08));
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            padding: 2.5rem 1.5rem;
+            border-radius: 15px;
             display: grid;
             place-items: center;
             font-size: 2rem;
             color: var(--color-text-secondary);
             transition: all var(--duration) ease;
             cursor: pointer;
+            min-height: 160px;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .sponsor-slot img {
+            max-width: 90%;
+            max-height: 130px;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: all var(--duration) ease;
+            filter: brightness(0.9) contrast(1.05) invert(0.3);
         }
 
         .sponsor-slot:hover {
             border-color: var(--color-accent-gold);
-            background: linear-gradient(135deg, rgba(0, 82, 204, 0.15), rgba(212, 175, 55, 0.05));
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.2), rgba(212, 175, 55, 0.1));
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .sponsor-slot:hover img {
+            opacity: 1;
+            filter: brightness(1.2) contrast(1.1);
+            transform: scale(1.05);
         }
 
         .sponsor-text {
@@ -824,12 +927,12 @@
         <p class="section-subtitle">Fundada en 2023, Alfa UMG representa el compromiso de estudiantes con la excelencia en ingeniería aeronáutica.</p>
         
         <div class="mission-vision">
-            <div class="card">
+            <div class="card" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/94ada04f-b2b7-4535-b85b-7c9ad9c8e69c'); background-size: cover; background-position: center; background-blend-mode: overlay;">
                 <div class="card-icon">🚀</div>
                 <h3>Misión</h3>
                 <p>Ser un modelo de grupo social dedicado a la investigación, desarrollo y puesta en práctica de conocimientos multidisciplinarios, representando honorablemente a la Universidad Marista de Guadalajara con liderazgo en experiencia profesional.</p>
             </div>
-            <div class="card">
+            <div class="card" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/ef3fb782-8238-432c-8f0c-e522a1a40bb6'); background-size: cover; background-position: center; background-blend-mode: overlay;">
                 <div class="card-icon">🎯</div>
                 <h3>Visión</h3>
                 <p>Generar oportunidades para que estudiantes participen en proyectos de ingeniería profesional, aplicando conocimientos e investigación en aeronáutica con valores maristas, posicionándonos como referentes latinoamericanos.</p>
@@ -844,10 +947,8 @@
         
         <div class="aircraft-grid">
             <!-- PROYECTO ALFA-01 -->
-            <!-- 📸 REEMPLAZA: aircraft-image con tu foto del avión -->
-            <!-- 👇 COPIA LA URL DE TU IMAGEN Y REEMPLAZA EN background-image -->
             <div class="aircraft-card">
-                <div class="aircraft-image" style="background-image: url('TU_IMAGEN_ALFA01_AQUI'); background-size: cover; background-position: center; font-size: 0;">✈️</div>
+                <div class="aircraft-image" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/311a03d0-fa9c-41ba-aa71-704aabbddda1'); background-size: cover; background-position: center; font-size: 0;"></div>
                 <div class="aircraft-info">
                     <h3>Alfa-01</h3>
                     <p class="aircraft-year">2023 | SAE AeroDesign México</p>
@@ -857,10 +958,8 @@
             </div>
 
             <!-- PROYECTO QUETZALFA-02 -->
-            <!-- 📸 REEMPLAZA: aircraft-image con tu foto del avión -->
-            <!-- 👇 COPIA LA URL DE TU IMAGEN Y REEMPLAZA EN background-image -->
             <div class="aircraft-card">
-                <div class="aircraft-image" style="background-image: url('TU_IMAGEN_QUETZALFA02_AQUI'); background-size: cover; background-position: center; font-size: 0;">🦅</div>
+                <div class="aircraft-image" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/0688cee7-08a0-4ccc-a2e2-cc273f4729e7'); background-size: cover; background-position: center; font-size: 0;"></div>
                 <div class="aircraft-info">
                     <h3>Quetzalfa-02</h3>
                     <p class="aircraft-year">2024 | SAE AeroDesign México</p>
@@ -871,10 +970,8 @@
             </div>
 
             <!-- PROYECTO FURIA-03 -->
-            <!-- 📸 REEMPLAZA: aircraft-image con tu foto del avión -->
-            <!-- 👇 COPIA LA URL DE TU IMAGEN Y REEMPLAZA EN background-image -->
             <div class="aircraft-card">
-                <div class="aircraft-image" style="background-image: url('TU_IMAGEN_FURIA03_AQUI'); background-size: cover; background-position: center; font-size: 0;">🐉</div>
+                <div class="aircraft-image" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/227b2a56-fb3e-4926-9aa9-913f87a47922'); background-size: cover; background-position: center; font-size: 0;"></div>
                 <div class="aircraft-info">
                     <h3>FuriA-03</h3>
                     <p class="aircraft-year">2025 | AeroDesign MX</p>
@@ -891,17 +988,17 @@
         <p class="section-subtitle">Somos una escudería multidisciplinaria. Cada área es clave para el éxito.</p>
         
         <div class="work-areas">
-            <div class="area-card">
+            <div class="area-card" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/cf2c248a-e18b-4908-aa64-50461a2834f9'); background-size: cover; background-position: center; background-blend-mode: overlay;">
                 <div class="area-icon">📊</div>
                 <h3>Gestión</h3>
                 <p>Planificación, administración de recursos, finanzas, patrocinios y comunicación. Coordinamos cada etapa con precisión.</p>
             </div>
-            <div class="area-card">
+            <div class="area-card" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/92490d3b-afb0-44a8-ae2c-9c3e6041175a'); background-size: cover; background-position: center; background-blend-mode: overlay;">
                 <div class="area-icon">🎨</div>
                 <h3>Diseño & Validación</h3>
                 <p>Desarrollo CAD, análisis aerodinámico, estructural y simulaciones computacionales con software de ingeniería profesional.</p>
             </div>
-            <div class="area-card">
+            <div class="area-card" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/1073d673-f6f5-490b-9a70-0f339c9ad805'); background-size: cover; background-position: center; background-blend-mode: overlay;">
                 <div class="area-icon">🔧</div>
                 <h3>Manufactura</h3>
                 <p>Construcción física, trabajos con fibra de carbono, balsa, espumas especiales y sistemas electrónicos integrados.</p>
@@ -917,22 +1014,13 @@
         <div class="sponsors">
             <div class="sponsor-grid">
                 <div class="sponsor-slot">
-                    <span>🤝</span>
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/3e7f3910-997c-4879-8d70-43d4538b7049" alt="Universidad Marista de Guadalajara">
                 </div>
                 <div class="sponsor-slot">
-                    <span>🤝</span>
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/9e7eb7df-70cc-4c49-ad75-081e4d9b9091" alt="SolidWorks">
                 </div>
                 <div class="sponsor-slot">
-                    <span>🤝</span>
-                </div>
-                <div class="sponsor-slot">
-                    <span>🤝</span>
-                </div>
-                <div class="sponsor-slot">
-                    <span>🤝</span>
-                </div>
-                <div class="sponsor-slot">
-                    <span>🤝</span>
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/f5aa86ff-cc7d-40b0-b81f-c9555b29e082" alt="Deyun Pharma">
                 </div>
             </div>
             <p class="sponsor-text">¿Tu empresa quiere ser parte de Alfa UMG? Contáctanos para conocer opciones de patrocinio.</p>
